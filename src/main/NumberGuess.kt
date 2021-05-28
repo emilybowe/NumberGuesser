@@ -1,21 +1,31 @@
 import kotlin.random.Random
 
+fun main(args: Array<String>) {
+    var numGuess = NumberGuess()
+    println(numGuess.game())
+}
+
 class NumberGuess {
-    var numberPickedByProgram : Int = Random.nextInt(0, 100)
+    var rangeStart: Int = 0
+    var rangeEnd: Int = 100
+    var numberPickedByProgram : Int = Random.nextInt(rangeStart, rangeEnd)
 
     fun game(){
         var numberGuessedCorrectly: Boolean = false
-        print("Write any number: ")
+        print("Write any number between $rangeStart and $rangeEnd: ")
         var numberGuessedByUser = Integer.valueOf(readLine())
         var output = if(numberGuessedByUser == numberPickedByProgram) {
             numberGuessedCorrectly = true
             "Correct!"
-        }else if (numberGuessedByUser > numberPickedByProgram) {
-            "Too Big!"
+        }else if (numberGuessedByUser < rangeStart || numberGuessedByUser > rangeEnd){
+            "That's outside the range!"
         }else if (numberGuessedByUser < numberPickedByProgram){
             "Too small!"
+        } else if (numberGuessedByUser > numberPickedByProgram){
+            "Too Big!"
         } else {
-            "Was that the correct format?"
+            "Was your number in the correct range?"
+            //what about incorrect format, ints that are too large
         }
         println(output)
         println("The entered number is: $numberGuessedByUser")
@@ -41,9 +51,4 @@ class NumberGuess {
             }
         }
     }
-}
-
-fun main(args: Array<String>) {
-    var numGuess = NumberGuess()
-    println(numGuess.game())
 }
